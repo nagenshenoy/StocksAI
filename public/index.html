@@ -687,6 +687,242 @@ footer {
   .kpi-value { font-size: 18px; }
   .header-clock, .refresh-info { display: none; }
 }
+
+/* ─── LIGHT MODE (reference: tracker.shiri.cc warm parchment) ─── */
+body.light {
+  --bg-primary: #edeae2;
+  --bg-secondary: #f5f2eb;
+  --bg-card: #f5f2eb;
+  --bg-card-hover: #ede9df;
+  --border: #d6d0c6;
+  --border-bright: #c4bdb0;
+  --border-glow: rgba(45,120,79,0.25);
+  --text-primary: #1a1714;
+  --text-secondary: #5c574f;
+  --text-muted: #968f84;
+  --accent-cyan: #2a6496;
+  --accent-cyan-dim: rgba(42,100,150,0.1);
+  --accent-green: #2d6a4f;
+  --accent-green-dim: rgba(45,106,79,0.12);
+  --accent-red: #a93226;
+  --accent-red-dim: rgba(169,50,38,0.1);
+  --accent-amber: #8a6200;
+}
+
+body.light::before {
+  background-image: none;
+}
+
+body.light #header {
+  background: rgba(237,234,226,0.97);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+body.light .brand-title {
+  color: var(--accent-green);
+}
+
+body.light .skeleton {
+  background: linear-gradient(90deg, #e8e4da 25%, #d6d0c6 50%, #e8e4da 75%);
+  background-size: 200% 100%;
+}
+
+body.light .modal-box {
+  background: #f5f2eb;
+  border: 1px solid var(--border-bright);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+body.light #modal-overlay {
+  background: rgba(26,23,20,0.6);
+}
+
+body.light .modal-company,
+body.light .modal-price,
+body.light td.price,
+body.light .company-name,
+body.light .metric-value {
+  color: var(--text-primary) !important;
+}
+
+body.light .modal-header {
+  border-bottom-color: var(--border);
+}
+
+body.light .modal-footer {
+  border-top-color: var(--border);
+  background: #ede9df;
+}
+
+body.light .modal-body {
+  background: #f5f2eb;
+}
+
+body.light .metric-item {
+  background: #ede9df;
+  border-color: var(--border);
+}
+
+body.light .chart-container {
+  background: #f5f2eb;
+}
+
+body.light thead th {
+  background: #e4e0d6;
+  color: var(--text-secondary);
+  border-bottom-color: var(--border-bright);
+}
+
+body.light .table-wrapper {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+body.light .table-header-bar {
+  background: #ede9df;
+  border-bottom-color: var(--border);
+}
+
+body.light .kpi-card {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+body.light .kpi-card::before {
+  background: var(--accent-green);
+}
+
+body.light .sector-card {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+body.light .ticker-badge {
+  background: rgba(42,100,150,0.1);
+  border-color: rgba(42,100,150,0.25);
+  color: var(--accent-cyan);
+}
+
+body.light .sector-pill {
+  border-color: var(--border-bright);
+  color: var(--text-secondary);
+}
+
+body.light tbody tr.row-gain     { background: rgba(45,106,79,0.07); }
+body.light tbody tr.row-loss     { background: rgba(169,50,38,0.06); }
+body.light tbody tr.row-gain-strong { background: rgba(45,106,79,0.14); }
+body.light tbody tr.row-loss-strong { background: rgba(169,50,38,0.12); }
+body.light tbody tr:hover        { background: #e8e4da; }
+body.light tbody tr:hover.row-gain { background: rgba(45,106,79,0.2); }
+body.light tbody tr:hover.row-loss { background: rgba(169,50,38,0.16); }
+
+body.light footer {
+  border-top-color: var(--border);
+  background: #e4e0d6;
+}
+
+body.light .sector-tab {
+  border-color: var(--border-bright);
+  color: var(--text-secondary);
+}
+
+body.light .sector-tab:hover,
+body.light .sector-tab.active {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: var(--accent-green-dim);
+}
+
+body.light .chart-tab {
+  border-color: var(--border-bright);
+  color: var(--text-secondary);
+}
+
+body.light .chart-tab:hover,
+body.light .chart-tab.active {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+}
+
+body.light .nse-link {
+  background: rgba(42,100,150,0.1);
+  border-color: rgba(42,100,150,0.3);
+  color: var(--accent-cyan);
+}
+
+body.light .nse-link:hover {
+  background: rgba(42,100,150,0.18);
+}
+
+body.light .modal-close {
+  border-color: var(--border-bright);
+  color: var(--text-secondary);
+}
+
+body.light .market-dot {
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+body.light .section-heading {
+  color: var(--text-secondary);
+}
+
+/* ─── THEME TOGGLE BUTTON ─── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: 100px;
+  padding: 5px 12px 5px 8px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.toggle-track {
+  width: 30px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--border-bright);
+  position: relative;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+
+body.light .toggle-track {
+  background: var(--accent-cyan);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+body.light .toggle-thumb {
+  transform: translateX(14px);
+}
+
+.toggle-icon { font-size: 13px; line-height: 1; }
+
 </style>
 </head>
 <body>
@@ -708,6 +944,11 @@ footer {
         <div>Updated: <span id="last-updated">—</span></div>
         <div>Refresh in <span class="refresh-countdown" id="countdown">—</span>s</div>
       </div>
+      <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode" onclick="toggleTheme()">
+        <span class="toggle-icon" id="theme-icon">🌙</span>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span id="theme-label">Dark</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1195,19 +1436,22 @@ async function loadModalChart(ticker, period) {
           legend: { display: false },
           tooltip: {
             mode: 'index', intersect: false,
-            backgroundColor: '#1a1a2e', borderColor: '#353560', borderWidth: 1,
-            titleColor: '#a8a8cc', bodyColor: '#f0f0ff',
+            backgroundColor: () => document.body.classList.contains('light') ? '#f5f2eb' : '#1a1a2e',
+            borderColor: () => document.body.classList.contains('light') ? '#d6d0c6' : '#353560',
+            borderWidth: 1,
+            titleColor: () => document.body.classList.contains('light') ? '#5c574f' : '#a8a8cc',
+            bodyColor: () => document.body.classList.contains('light') ? '#1a1714' : '#f0f0ff',
             callbacks: { label: ctx => '₹' + Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 2 }) }
           }
         },
         scales: {
           x: {
-            grid: { color: '#1e1e30' },
-            ticks: { color: '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, maxTicksLimit: 8 }
+            grid: { color: () => document.body.classList.contains('light') ? '#e4e0d6' : '#1e1e30' },
+            ticks: { color: () => document.body.classList.contains('light') ? '#968f84' : '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, maxTicksLimit: 8 }
           },
           y: {
-            grid: { color: '#1e1e30' },
-            ticks: { color: '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 }) }
+            grid: { color: () => document.body.classList.contains('light') ? '#e4e0d6' : '#1e1e30' },
+            ticks: { color: () => document.body.classList.contains('light') ? '#968f84' : '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 }) }
           }
         }
       }
@@ -1273,6 +1517,38 @@ setInterval(() => {
 
 // ─── INIT ────────────────────────────────────────────────
 refresh();
+
+// ─── THEME TOGGLE ────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
+  document.getElementById('theme-label').textContent = isLight ? 'Light' : 'Dark';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  // Update chart tooltip colors if modal is open
+  if (state.modalChart) {
+    const isDark = !isLight;
+    state.modalChart.options.plugins.tooltip.backgroundColor = isDark ? '#1a1a2e' : '#f5f2eb';
+    state.modalChart.options.plugins.tooltip.titleColor = isDark ? '#a8a8cc' : '#5c574f';
+    state.modalChart.options.plugins.tooltip.bodyColor = isDark ? '#f0f0ff' : '#1a1714';
+    state.modalChart.options.plugins.tooltip.borderColor = isDark ? '#353560' : '#d6d0c6';
+    state.modalChart.options.scales.x.grid.color = isDark ? '#1e1e30' : '#e4e0d6';
+    state.modalChart.options.scales.y.grid.color = isDark ? '#1e1e30' : '#e4e0d6';
+    state.modalChart.options.scales.x.ticks.color = isDark ? '#6e6e98' : '#968f84';
+    state.modalChart.options.scales.y.ticks.color = isDark ? '#6e6e98' : '#968f84';
+    state.modalChart.update();
+  }
+}
+
+// Load saved theme preference (dark is default)
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('theme-icon').textContent = '☀️';
+    document.getElementById('theme-label').textContent = 'Light';
+  }
+})();
+
 </script>
 </body>
 </html>
