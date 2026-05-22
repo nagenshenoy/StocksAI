@@ -12,20 +12,20 @@
 :root {
   --bg-primary: #07070d;
   --bg-secondary: #0e0e18;
-  --bg-card: #13131f;
-  --bg-card-hover: #1a1a2e;
-  --border: #1e1e30;
-  --border-bright: #2a2a42;
-  --border-glow: rgba(0,212,255,0.2);
-  --text-primary: #e2e2f0;
-  --text-secondary: #7878a0;
-  --text-muted: #44445a;
+  --bg-card: #141424;
+  --bg-card-hover: #1c1c32;
+  --border: #252540;
+  --border-bright: #353560;
+  --border-glow: rgba(0,212,255,0.3);
+  --text-primary: #f0f0ff;
+  --text-secondary: #a8a8cc;
+  --text-muted: #6e6e98;
   --accent-cyan: #00d4ff;
-  --accent-cyan-dim: rgba(0,212,255,0.12);
+  --accent-cyan-dim: rgba(0,212,255,0.14);
   --accent-green: #00e87a;
-  --accent-green-dim: rgba(0,232,122,0.1);
+  --accent-green-dim: rgba(0,232,122,0.12);
   --accent-red: #ff3d5a;
-  --accent-red-dim: rgba(255,61,90,0.1);
+  --accent-red-dim: rgba(255,61,90,0.12);
   --accent-amber: #ffb347;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-sans: 'Syne', sans-serif;
@@ -34,7 +34,6 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { font-size: 14px; scroll-behavior: smooth; }
 
 body {
@@ -45,14 +44,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Grid noise texture */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,212,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.015) 1px, transparent 1px);
+    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -63,7 +61,7 @@ body::before {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(7,7,13,0.92);
+  background: rgba(7,7,13,0.94);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -79,11 +77,7 @@ body::before {
   gap: 16px;
 }
 
-.brand {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
+.brand { display: flex; flex-direction: column; gap: 1px; }
 
 .brand-title {
   font-family: var(--font-sans);
@@ -113,17 +107,17 @@ body::before {
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-primary);
 }
 
 .market-dot {
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--accent-green);
-  box-shadow: 0 0 8px var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
   animation: pulse 2s infinite;
 }
 
@@ -142,17 +136,19 @@ body::before {
   font-size: 13px;
   color: var(--text-secondary);
   letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 .refresh-info {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-align: right;
+  font-weight: 500;
 }
 
 .refresh-countdown {
   color: var(--accent-cyan);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ─── MAIN CONTAINER ─── */
@@ -188,7 +184,7 @@ body::before {
   top: 0; left: 0; right: 0;
   height: 2px;
   background: var(--accent-cyan);
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .kpi-card:hover {
@@ -198,15 +194,16 @@ body::before {
 
 .kpi-label {
   font-size: 10px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 6px;
+  font-weight: 600;
 }
 
 .kpi-value {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   font-family: var(--font-sans);
   color: var(--text-primary);
   line-height: 1;
@@ -217,9 +214,10 @@ body::before {
 .kpi-value.cyan { color: var(--accent-cyan); }
 
 .kpi-sub {
-  font-size: 10px;
-  color: var(--text-muted);
-  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 5px;
+  font-weight: 500;
 }
 
 /* ─── SECTOR TABS ─── */
@@ -232,10 +230,11 @@ body::before {
 
 .sector-tab {
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-bright);
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.04em;
   padding: 6px 12px;
   border-radius: 100px;
@@ -247,17 +246,18 @@ body::before {
 .sector-tab:hover {
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
 }
 
 .sector-tab.active {
   background: var(--accent-cyan-dim);
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .sector-tab .count {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.1);
   border-radius: 10px;
   padding: 1px 6px;
   margin-left: 4px;
@@ -279,38 +279,32 @@ body::before {
   justify-content: space-between;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.table-scroll {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
   font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
 }
+
+.table-scroll { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
 
 thead th {
   background: var(--bg-secondary);
   padding: 10px 12px;
   text-align: left;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-bright);
   transition: color 0.15s;
 }
 
 thead th:hover { color: var(--accent-cyan); }
-
 thead th.sorted { color: var(--accent-cyan); }
 thead th .sort-arrow { margin-left: 4px; opacity: 0.5; }
 thead th.sorted .sort-arrow { opacity: 1; }
@@ -325,42 +319,37 @@ tbody tr {
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--bg-card-hover); }
 
-tbody tr.row-gain { background: rgba(0,232,122,0.03); }
-tbody tr.row-loss { background: rgba(255,61,90,0.03); }
-tbody tr.row-gain-strong { background: rgba(0,232,122,0.07); }
-tbody tr.row-loss-strong { background: rgba(255,61,90,0.07); }
+tbody tr.row-gain     { background: rgba(0,232,122,0.04); }
+tbody tr.row-loss     { background: rgba(255,61,90,0.04); }
+tbody tr.row-gain-strong { background: rgba(0,232,122,0.09); }
+tbody tr.row-loss-strong { background: rgba(255,61,90,0.09); }
+tbody tr:hover.row-gain { background: rgba(0,232,122,0.11); }
+tbody tr:hover.row-loss { background: rgba(255,61,90,0.11); }
 
-tbody tr:hover.row-gain { background: rgba(0,232,122,0.09); }
-tbody tr:hover.row-loss { background: rgba(255,61,90,0.09); }
-
-td {
-  padding: 10px 12px;
-  white-space: nowrap;
-  color: var(--text-primary);
-}
-
+td { padding: 11px 12px; white-space: nowrap; color: var(--text-primary); }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
-td.price { font-weight: 600; font-size: 13px; }
-td.gain { color: var(--accent-green); font-weight: 600; }
-td.loss { color: var(--accent-red); font-weight: 600; }
-td.muted { color: var(--text-secondary); }
+td.price { font-weight: 700; font-size: 13px; color: #ffffff; }
+td.gain  { color: var(--accent-green); font-weight: 700; }
+td.loss  { color: var(--accent-red);   font-weight: 700; }
+td.muted { color: var(--text-secondary); font-weight: 500; }
 
 .ticker-badge {
   display: inline-block;
-  background: rgba(0,212,255,0.08);
-  border: 1px solid rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
   color: var(--accent-cyan);
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 3px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .company-name {
-  font-weight: 500;
+  font-weight: 600;
   font-family: var(--font-sans);
   font-size: 13px;
+  color: #ffffff;
 }
 
 .sector-pill {
@@ -369,19 +358,18 @@ td.muted { color: var(--text-secondary); }
   padding: 2px 6px;
   border-radius: 3px;
   border: 1px solid var(--border-bright);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 /* ─── SKELETON ─── */
-.skeleton-row td {
-  padding: 14px 12px;
-}
+.skeleton-row td { padding: 14px 12px; }
 
 .skeleton {
   height: 14px;
-  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border) 50%, var(--bg-secondary) 75%);
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-bright) 50%, var(--bg-secondary) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 3px;
@@ -394,26 +382,41 @@ td.muted { color: var(--text-secondary); }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── SECTOR CARDS ─── */
-.sector-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
+/* ─── SECTOR CARDS — single scrollable row ─── */
+.sector-row-wrap {
+  overflow-x: auto;
   margin-bottom: 24px;
+  padding-bottom: 4px;
+}
+
+.sector-row-wrap::-webkit-scrollbar { height: 4px; }
+.sector-row-wrap::-webkit-scrollbar-track { background: var(--bg-secondary); }
+.sector-row-wrap::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+.sector-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  min-width: max-content;
 }
 
 .sector-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
-  transition: border-color 0.2s;
+  padding: 16px 18px;
+  width: 200px;
+  flex-shrink: 0;
+  transition: border-color 0.2s, transform 0.15s;
 }
 
-.sector-card:hover { border-color: var(--border-bright); }
+.sector-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-2px);
+}
 
 .sector-card-header {
   display: flex;
@@ -425,17 +428,18 @@ td.muted { color: var(--text-secondary); }
 .sector-card-name {
   font-family: var(--font-sans);
   font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .sector-card-icon { font-size: 16px; }
 
 .sector-card-change {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
   font-family: var(--font-sans);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
 .sector-bar-track {
@@ -443,7 +447,7 @@ td.muted { color: var(--text-secondary); }
   background: var(--border);
   border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .sector-bar-fill {
@@ -454,17 +458,34 @@ td.muted { color: var(--text-secondary); }
 
 .sector-top-stock {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-.sector-top-stock span { color: var(--text-primary); font-weight: 600; }
+.sector-top-stock span {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* ─── ERROR STATE ─── */
+.error-banner {
+  background: rgba(255,61,90,0.1);
+  border: 1px solid rgba(255,61,90,0.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--accent-red);
+  margin-bottom: 16px;
+  display: none;
+  font-weight: 600;
+}
 
 /* ─── MODAL ─── */
 #modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.78);
   backdrop-filter: blur(8px);
   z-index: 1000;
   align-items: center;
@@ -472,10 +493,7 @@ td.muted { color: var(--text-secondary); }
   padding: 20px;
 }
 
-#modal-overlay.open {
-  display: flex;
-  animation: fadeIn 0.2s ease;
-}
+#modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -493,7 +511,7 @@ td.muted { color: var(--text-secondary); }
 
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .modal-header {
@@ -505,25 +523,36 @@ td.muted { color: var(--text-secondary); }
 }
 
 .modal-title-area { flex: 1; }
-.modal-company { font-family: var(--font-sans); font-size: 20px; font-weight: 700; }
-.modal-ticker { font-size: 12px; color: var(--accent-cyan); margin-top: 2px; }
+
+.modal-company {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.modal-ticker { font-size: 12px; color: var(--accent-cyan); margin-top: 3px; font-weight: 600; }
 
 .modal-price-area { text-align: right; }
-.modal-price { font-family: var(--font-sans); font-size: 28px; font-weight: 800; }
-.modal-change { font-size: 14px; font-weight: 600; margin-top: 2px; }
+
+.modal-price {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.modal-change { font-size: 14px; font-weight: 700; margin-top: 2px; }
 
 .modal-close {
   background: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-bright);
   color: var(--text-secondary);
   font-size: 18px;
-  width: 32px;
-  height: 32px;
+  width: 32px; height: 32px;
   border-radius: 4px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   margin-left: 16px;
   transition: all 0.15s;
   flex-shrink: 0;
@@ -533,18 +562,15 @@ td.muted { color: var(--text-secondary); }
 
 .modal-body { padding: 20px 24px; }
 
-.chart-tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 16px;
-}
+.chart-tabs { display: flex; gap: 4px; margin-bottom: 16px; }
 
 .chart-tab {
   background: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-bright);
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 11px;
+  font-weight: 600;
   padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -557,21 +583,13 @@ td.muted { color: var(--text-secondary); }
   background: var(--accent-cyan-dim);
 }
 
-.chart-container {
-  height: 240px;
-  margin-bottom: 20px;
-  position: relative;
-}
+.chart-container { height: 240px; margin-bottom: 20px; position: relative; }
 
 #modal-chart-loading {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
   background: var(--bg-secondary);
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 12px; color: var(--text-muted);
 }
 
 .modal-metrics {
@@ -583,32 +601,40 @@ td.muted { color: var(--text-secondary); }
 
 .metric-item {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-bright);
   border-radius: var(--radius);
   padding: 12px;
 }
 
-.metric-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
-.metric-value { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.metric-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
 
 .modal-footer {
   padding: 14px 24px;
   border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
 }
 
 .nse-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
   background: var(--accent-cyan-dim);
-  border: 1px solid rgba(0,212,255,0.3);
+  border: 1px solid rgba(0,212,255,0.35);
   color: var(--accent-cyan);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 6px 14px;
   border-radius: 4px;
   text-decoration: none;
@@ -616,19 +642,7 @@ td.muted { color: var(--text-secondary); }
   transition: all 0.15s;
 }
 
-.nse-link:hover { background: rgba(0,212,255,0.2); }
-
-/* ─── ERROR STATE ─── */
-.error-banner {
-  background: rgba(255,61,90,0.08);
-  border: 1px solid rgba(255,61,90,0.25);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  font-size: 12px;
-  color: var(--accent-red);
-  margin-bottom: 16px;
-  display: none;
-}
+.nse-link:hover { background: rgba(0,212,255,0.22); }
 
 /* ─── FOOTER ─── */
 footer {
@@ -636,10 +650,22 @@ footer {
   padding: 20px 24px;
   text-align: center;
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   max-width: 1600px;
   margin: 0 auto;
-  line-height: 1.8;
+  line-height: 1.9;
+  font-weight: 500;
+}
+
+/* ─── SECTION HEADING ─── */
+.section-heading {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 /* ─── RESPONSIVE ─── */
@@ -649,20 +675,17 @@ footer {
 
 @media (max-width: 768px) {
   .container { padding: 12px 16px 32px; }
-  .header-inner { height: auto; flex-wrap: wrap; padding: 10px 0; gap: 8px; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
   .table-scroll table { font-size: 11px; }
   thead th:nth-child(n+9) { display: none; }
   td:nth-child(n+9) { display: none; }
   .modal-metrics { grid-template-columns: repeat(2, 1fr); }
-  .sector-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
   .kpi-strip { grid-template-columns: 1fr 1fr; }
-  .kpi-value { font-size: 16px; }
+  .kpi-value { font-size: 18px; }
   .header-clock, .refresh-info { display: none; }
-  .sector-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -682,7 +705,7 @@ footer {
       </div>
       <div class="header-clock" id="clock">--:--:-- IST</div>
       <div class="refresh-info">
-        <div>Last updated: <span id="last-updated">—</span></div>
+        <div>Updated: <span id="last-updated">—</span></div>
         <div>Refresh in <span class="refresh-countdown" id="countdown">—</span>s</div>
       </div>
     </div>
@@ -692,11 +715,10 @@ footer {
 <!-- MAIN -->
 <div class="container">
 
-  <!-- Error Banner -->
-  <div class="error-banner" id="error-banner">⚠ Unable to load data from API. Make sure the Flask server is running on <code>http://localhost:5000</code>.</div>
+  <div class="error-banner" id="error-banner">⚠ Unable to load data. Make sure the Flask server is running on <code>http://localhost:5000</code>.</div>
 
   <!-- KPI Strip -->
-  <div class="kpi-strip" id="kpi-strip">
+  <div class="kpi-strip">
     <div class="kpi-card">
       <div class="kpi-label">Stocks Tracked</div>
       <div class="kpi-value cyan" id="kpi-total">—</div>
@@ -711,16 +733,16 @@ footer {
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Top Gainer</div>
-      <div class="kpi-value green" id="kpi-top-gainer" style="font-size:15px">—</div>
+      <div class="kpi-value green" id="kpi-top-gainer" style="font-size:16px">—</div>
       <div class="kpi-sub" id="kpi-top-gainer-name">—</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Top Loser</div>
-      <div class="kpi-value red" id="kpi-top-loser" style="font-size:15px">—</div>
+      <div class="kpi-value red" id="kpi-top-loser" style="font-size:16px">—</div>
       <div class="kpi-sub" id="kpi-top-loser-name">—</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Avg Sector Change</div>
+      <div class="kpi-label">Avg Sector Chg</div>
       <div class="kpi-value" id="kpi-avg-change">—</div>
     </div>
   </div>
@@ -731,7 +753,7 @@ footer {
   <!-- Stock Table -->
   <div class="table-wrapper">
     <div class="table-header-bar">
-      <span>Stock Universe — NSE Listed</span>
+      <span>NSE Stock Universe</span>
       <span id="visible-count" style="color:var(--text-secondary)">Loading...</span>
     </div>
     <div class="table-scroll">
@@ -755,20 +777,21 @@ footer {
           </tr>
         </thead>
         <tbody id="stock-tbody">
-          <!-- Skeleton rows -->
           <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:100%"></div></td></tr>
-          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:100%"></div></td></tr>
-          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:100%"></div></td></tr>
-          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:100%"></div></td></tr>
-          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:100%"></div></td></tr>
+          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:95%"></div></td></tr>
+          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:98%"></div></td></tr>
+          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:90%"></div></td></tr>
+          <tr class="skeleton-row"><td colspan="14"><div class="skeleton" style="width:96%"></div></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Sector Performance Cards -->
-  <div style="font-family:var(--font-sans); font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.1em;">Sector Performance</div>
-  <div class="sector-grid" id="sector-grid"></div>
+  <!-- Sector Performance Cards — single row -->
+  <div class="section-heading">Sector Performance</div>
+  <div class="sector-row-wrap">
+    <div class="sector-grid" id="sector-grid"></div>
+  </div>
 
 </div>
 
@@ -776,10 +799,10 @@ footer {
 <footer>
   <div>Data sourced via Yahoo Finance / yfinance · Prices delayed ~15 min for NSE stocks</div>
   <div>Last full refresh: <span id="footer-refresh">—</span></div>
-  <div style="margin-top:4px; color:var(--text-muted); font-size:10px;">For informational purposes only. Not investment advice. Past performance is not indicative of future results.</div>
+  <div style="margin-top:4px; color:var(--text-muted); font-size:10px;">For informational purposes only. Not investment advice.</div>
 </footer>
 
-<!-- STOCK MODAL -->
+<!-- MODAL -->
 <div id="modal-overlay">
   <div class="modal-box" id="modal-box">
     <div class="modal-header">
@@ -815,10 +838,12 @@ footer {
 </div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────
+// ─── CONFIG ──────────────────────────────────────────────
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:5000'
-  : '';  // same origin on Vercel
+  : '';
+
+const REFRESH_SECONDS = 300; // 5 minutes
 
 const SECTORS = [
   "All",
@@ -832,16 +857,16 @@ const SECTORS = [
 ];
 
 const SECTOR_ICONS = {
-  "Data Center Operators": "🖥",
-  "Power & Electrical": "⚡",
-  "Cooling": "❄",
-  "Fiber / Networking": "🔗",
-  "Compute & Hardware": "🔲",
-  "Managed Services": "⚙",
-  "Building / Construction": "🏗"
+  "Data Center Operators":  "🖥",
+  "Power & Electrical":     "⚡",
+  "Cooling":                "❄",
+  "Fiber / Networking":     "🔗",
+  "Compute & Hardware":     "🔲",
+  "Managed Services":       "⚙",
+  "Building / Construction":"🏗"
 };
 
-// ─── STATE ────────────────────────────────────────────────
+// ─── STATE ───────────────────────────────────────────────
 const state = {
   quotes: [],
   sparklines: {},
@@ -849,48 +874,50 @@ const state = {
   sortColumn: 'change_pct',
   sortDirection: 'desc',
   lastUpdated: null,
-  countdown: 60,
+  countdown: REFRESH_SECONDS,
   modalChart: null,
   modalTicker: null,
   modalPeriod: '1mo'
 };
 
-// ─── UTILS ────────────────────────────────────────────────
-function fmt(v, digits=2, prefix='') {
+// ─── UTILS ───────────────────────────────────────────────
+function fmt(v, digits=2) {
   if (v === null || v === undefined) return '—';
-  return prefix + Number(v).toLocaleString('en-IN', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  return Number(v).toLocaleString('en-IN', { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
-function fmtCurrency(v) { return v === null || v === undefined ? '—' : '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 2 }); }
+function fmtCurrency(v) {
+  if (v === null || v === undefined) return '—';
+  return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+}
 
 function fmtVolume(v) {
   if (v === null || v === undefined) return '—';
-  if (v >= 1e7) return (v/1e7).toFixed(1) + 'Cr';
-  if (v >= 1e5) return (v/1e5).toFixed(1) + 'L';
+  if (v >= 1e7) return (v/1e7).toFixed(1) + ' Cr';
+  if (v >= 1e5) return (v/1e5).toFixed(1) + ' L';
   if (v >= 1e3) return (v/1e3).toFixed(0) + 'K';
-  return v.toString();
+  return String(v);
 }
 
 function fmtMarketCap(v) {
   if (v === null || v === undefined) return '—';
-  if (v >= 1e12) return '₹' + (v/1e12).toFixed(1) + 'T';
-  if (v >= 1e9) return '₹' + (v/1e9).toFixed(1) + 'B';
-  if (v >= 1e6) return '₹' + (v/1e6).toFixed(0) + 'M';
+  if (v >= 1e12) return '₹' + (v/1e12).toFixed(2) + 'T';
+  if (v >= 1e9)  return '₹' + (v/1e9).toFixed(1) + 'B';
+  if (v >= 1e6)  return '₹' + (v/1e6).toFixed(0) + 'M';
   return '₹' + v;
 }
 
 function fmtPct(v) {
   if (v === null || v === undefined) return '—';
-  const sign = v >= 0 ? '+' : '';
-  return sign + Number(v).toFixed(2) + '%';
+  return (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
 }
 
 function rowClass(pct) {
   if (pct === null) return '';
-  if (pct > 2) return 'row-gain-strong';
-  if (pct > 0) return 'row-gain';
+  if (pct >  2) return 'row-gain-strong';
+  if (pct >  0) return 'row-gain';
   if (pct < -2) return 'row-loss-strong';
-  if (pct < 0) return 'row-loss';
+  if (pct <  0) return 'row-loss';
   return '';
 }
 
@@ -899,7 +926,7 @@ function changeClass(v) {
   return v > 0 ? 'gain' : v < 0 ? 'loss' : '';
 }
 
-// ─── SPARKLINE SVG ────────────────────────────────────────
+// ─── SPARKLINE SVG ───────────────────────────────────────
 function drawSparkline(prices, width=80, height=28) {
   if (!prices || prices.length < 2) return '<span style="color:var(--text-muted);font-size:10px">—</span>';
   const min = Math.min(...prices), max = Math.max(...prices);
@@ -909,47 +936,43 @@ function drawSparkline(prices, width=80, height=28) {
     const y = height - ((p - min) / range) * (height - 2) - 1;
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(' ');
-  const isUp = prices[prices.length-1] >= prices[0];
+  const isUp = prices[prices.length - 1] >= prices[0];
   const color = isUp ? '#00e87a' : '#ff3d5a';
-  const fillId = 'sf' + Math.random().toString(36).slice(2,7);
+  const id = 'sf' + Math.random().toString(36).slice(2, 7);
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="${fillId}" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+      <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${color}" stop-opacity="0.3"/>
         <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
       </linearGradient>
     </defs>
-    <polygon points="${pts} ${width},${height} 0,${height}" fill="url(#${fillId})"/>
+    <polygon points="${pts} ${width},${height} 0,${height}" fill="url(#${id})"/>
     <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/>
   </svg>`;
 }
 
-// ─── MARKET STATUS ────────────────────────────────────────
+// ─── CLOCK & MARKET STATUS ───────────────────────────────
 function isMarketOpen() {
-  const now = new Date();
-  const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  const ist = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
   const day = ist.getDay();
-  const total = ist.getHours() * 60 + ist.getMinutes();
-  return day >= 1 && day <= 5 && total >= 555 && total <= 930;
+  const mins = ist.getHours() * 60 + ist.getMinutes();
+  return day >= 1 && day <= 5 && mins >= 555 && mins <= 930;
 }
 
 function updateClock() {
-  const now = new Date();
-  const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-  const pad = n => String(n).padStart(2, '0');
+  const ist = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+  const p = n => String(n).padStart(2, '0');
   document.getElementById('clock').textContent =
-    `${pad(ist.getHours())}:${pad(ist.getMinutes())}:${pad(ist.getSeconds())} IST`;
-
+    `${p(ist.getHours())}:${p(ist.getMinutes())}:${p(ist.getSeconds())} IST`;
   const open = isMarketOpen();
   document.getElementById('market-label').textContent = open ? 'NSE OPEN' : 'NSE CLOSED';
-  const dot = document.getElementById('market-dot');
-  dot.className = 'market-dot' + (open ? '' : ' closed');
+  document.getElementById('market-dot').className = 'market-dot' + (open ? '' : ' closed');
 }
 
 setInterval(updateClock, 1000);
 updateClock();
 
-// ─── SECTOR TABS ──────────────────────────────────────────
+// ─── SECTOR TABS ─────────────────────────────────────────
 function buildSectorTabs() {
   const nav = document.getElementById('sector-nav');
   nav.innerHTML = '';
@@ -968,32 +991,34 @@ function buildSectorTabs() {
   });
 }
 
-// ─── KPI STRIP ────────────────────────────────────────────
+// ─── KPI STRIP ───────────────────────────────────────────
 function renderKPIs() {
   const q = state.quotes.filter(s => s.change_pct !== null);
   document.getElementById('kpi-total').textContent = state.quotes.length;
   document.getElementById('kpi-gainers').textContent = q.filter(s => s.change_pct > 0).length;
-  document.getElementById('kpi-losers').textContent = q.filter(s => s.change_pct < 0).length;
+  document.getElementById('kpi-losers').textContent  = q.filter(s => s.change_pct < 0).length;
 
-  const sorted = [...q].sort((a,b) => (b.change_pct||0) - (a.change_pct||0));
-  if (sorted.length) {
-    const top = sorted[0];
+  if (q.length) {
+    const sorted = [...q].sort((a,b) => (b.change_pct||0) - (a.change_pct||0));
+    const top = sorted[0], bot = sorted[sorted.length - 1];
     document.getElementById('kpi-top-gainer').textContent = fmtPct(top.change_pct);
     document.getElementById('kpi-top-gainer-name').textContent = top.name;
-    const bot = sorted[sorted.length-1];
     document.getElementById('kpi-top-loser').textContent = fmtPct(bot.change_pct);
     document.getElementById('kpi-top-loser-name').textContent = bot.name;
   }
 
   const avg = q.length ? q.reduce((s,x) => s + x.change_pct, 0) / q.length : null;
-  const avgEl = document.getElementById('kpi-avg-change');
-  avgEl.textContent = avg !== null ? fmtPct(avg) : '—';
-  avgEl.className = 'kpi-value' + (avg > 0 ? ' green' : avg < 0 ? ' red' : '');
+  const el = document.getElementById('kpi-avg-change');
+  el.textContent = avg !== null ? fmtPct(avg) : '—';
+  el.className = 'kpi-value' + (avg > 0 ? ' green' : avg < 0 ? ' red' : '');
 }
 
-// ─── TABLE ────────────────────────────────────────────────
+// ─── TABLE ───────────────────────────────────────────────
 function getFilteredSorted() {
-  let q = state.activeSector === 'All' ? [...state.quotes] : state.quotes.filter(s => s.sector === state.activeSector);
+  let q = state.activeSector === 'All'
+    ? [...state.quotes]
+    : state.quotes.filter(s => s.sector === state.activeSector);
+
   q.sort((a, b) => {
     const av = a[state.sortColumn], bv = b[state.sortColumn];
     if (av === null && bv === null) return 0;
@@ -1007,14 +1032,13 @@ function getFilteredSorted() {
 
 function renderTable() {
   const q = getFilteredSorted();
-  const tbody = document.getElementById('stock-tbody');
   document.getElementById('visible-count').textContent = `${q.length} stocks`;
 
-  tbody.innerHTML = q.map((s, i) => {
+  document.getElementById('stock-tbody').innerHTML = q.map((s, i) => {
     const spark = drawSparkline(state.sparklines[s.ticker] || []);
-    const delay = Math.min(i * 30, 600);
-    return `<tr class="${rowClass(s.change_pct)}" data-ticker="${s.ticker}" style="animation-delay:${delay}ms" onclick="openModal('${s.ticker}')">
-      <td class="muted" style="font-size:10px">${i+1}</td>
+    const delay = Math.min(i * 25, 500);
+    return `<tr class="${rowClass(s.change_pct)}" style="animation-delay:${delay}ms" onclick="openModal('${s.ticker}')">
+      <td class="muted" style="font-size:10px">${i + 1}</td>
       <td><div class="company-name">${s.name}</div></td>
       <td><span class="ticker-badge">${s.ticker.replace('.NS','')}</span></td>
       <td><span class="sector-pill">${s.sector.split(' ')[0]}</span></td>
@@ -1032,7 +1056,7 @@ function renderTable() {
   }).join('');
 }
 
-// Table sort
+// Table sort headers
 document.querySelectorAll('thead th[data-col]').forEach(th => {
   th.addEventListener('click', () => {
     const col = th.dataset.col;
@@ -1040,46 +1064,49 @@ document.querySelectorAll('thead th[data-col]').forEach(th => {
       state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       state.sortColumn = col;
-      state.sortDirection = col === 'name' || col === 'ticker' || col === 'sector' ? 'asc' : 'desc';
+      state.sortDirection = (col === 'name' || col === 'ticker' || col === 'sector') ? 'asc' : 'desc';
     }
     document.querySelectorAll('thead th').forEach(t => {
       t.classList.remove('sorted');
-      const arrow = t.querySelector('.sort-arrow');
-      if (arrow) arrow.textContent = '↕';
+      const a = t.querySelector('.sort-arrow');
+      if (a) a.textContent = '↕';
     });
     th.classList.add('sorted');
-    const arrow = th.querySelector('.sort-arrow');
-    if (arrow) arrow.textContent = state.sortDirection === 'asc' ? '↑' : '↓';
+    const a = th.querySelector('.sort-arrow');
+    if (a) a.textContent = state.sortDirection === 'asc' ? '↑' : '↓';
     renderTable();
   });
 });
 
-// ─── SECTOR CARDS ─────────────────────────────────────────
+// ─── SECTOR CARDS ────────────────────────────────────────
 function renderSectorCards() {
   const sectors = SECTORS.filter(s => s !== 'All');
-  const grid = document.getElementById('sector-grid');
-  grid.innerHTML = sectors.map(sector => {
+  document.getElementById('sector-grid').innerHTML = sectors.map(sector => {
     const stocks = state.quotes.filter(q => q.sector === sector && q.change_pct !== null);
     const avg = stocks.length ? stocks.reduce((s,x) => s + x.change_pct, 0) / stocks.length : null;
-    const top = stocks.length ? stocks.reduce((a,b) => Math.abs((b.change_pct||0)) > Math.abs((a.change_pct||0)) ? b : a, stocks[0]) : null;
-    const isPos = avg >= 0;
-    const pct = avg !== null ? Math.min(Math.abs(avg) * 10, 100) : 0;
+    const top = stocks.length
+      ? stocks.reduce((a,b) => Math.abs(b.change_pct||0) > Math.abs(a.change_pct||0) ? b : a, stocks[0])
+      : null;
+    const isPos = avg !== null && avg >= 0;
+    const barPct = avg !== null ? Math.min(Math.abs(avg) * 12, 100) : 0;
     const icon = SECTOR_ICONS[sector] || '◈';
     return `<div class="sector-card">
       <div class="sector-card-header">
         <div class="sector-card-name">${sector}</div>
         <div class="sector-card-icon">${icon}</div>
       </div>
-      <div class="sector-card-change ${isPos ? 'gain' : avg < 0 ? 'loss' : ''}">${avg !== null ? fmtPct(avg) : '—'}</div>
+      <div class="sector-card-change ${isPos ? 'gain' : avg < 0 ? 'loss' : ''}">
+        ${avg !== null ? fmtPct(avg) : '—'}
+      </div>
       <div class="sector-bar-track">
-        <div class="sector-bar-fill" style="width:${pct}%; background:${isPos ? 'var(--accent-green)' : 'var(--accent-red)'}"></div>
+        <div class="sector-bar-fill" style="width:${barPct}%; background:${isPos ? 'var(--accent-green)' : 'var(--accent-red)'}"></div>
       </div>
       <div class="sector-top-stock">Top: <span>${top ? top.name + ' ' + fmtPct(top.change_pct) : '—'}</span></div>
     </div>`;
   }).join('');
 }
 
-// ─── MODAL ────────────────────────────────────────────────
+// ─── MODAL ───────────────────────────────────────────────
 function openModal(ticker) {
   const stock = state.quotes.find(s => s.ticker === ticker);
   if (!stock) return;
@@ -1091,27 +1118,26 @@ function openModal(ticker) {
   document.getElementById('modal-price').textContent = fmtCurrency(stock.price);
 
   const changeEl = document.getElementById('modal-change');
-  changeEl.textContent = `${stock.change !== null ? (stock.change >= 0?'+':'') + fmt(stock.change) : '—'} (${fmtPct(stock.change_pct)})`;
+  changeEl.textContent = `${stock.change !== null ? (stock.change >= 0 ? '+' : '') + fmt(stock.change) : '—'} (${fmtPct(stock.change_pct)})`;
   changeEl.className = 'modal-change ' + changeClass(stock.change_pct);
 
   document.getElementById('modal-metrics').innerHTML = [
-    ['Open', fmtCurrency(stock.open)],
-    ['Day High', fmtCurrency(stock.high)],
-    ['Day Low', fmtCurrency(stock.low)],
-    ['Volume', fmtVolume(stock.volume)],
+    ['Open',       fmtCurrency(stock.open)],
+    ['Day High',   fmtCurrency(stock.high)],
+    ['Day Low',    fmtCurrency(stock.low)],
+    ['Volume',     fmtVolume(stock.volume)],
     ['Market Cap', fmtMarketCap(stock.market_cap)],
-    ['P/E Ratio', stock.pe_ratio !== null ? fmt(stock.pe_ratio, 1) : '—'],
-    ['52W High', fmtCurrency(stock.week52_high)],
-    ['52W Low', fmtCurrency(stock.week52_low)],
-    ['Beta', stock.beta !== null ? fmt(stock.beta, 2) : '—'],
+    ['P/E Ratio',  stock.pe_ratio !== null ? fmt(stock.pe_ratio, 1) : '—'],
+    ['52W High',   fmtCurrency(stock.week52_high)],
+    ['52W Low',    fmtCurrency(stock.week52_low)],
+    ['Beta',       stock.beta !== null ? fmt(stock.beta, 2) : '—'],
   ].map(([l,v]) => `<div class="metric-item"><div class="metric-label">${l}</div><div class="metric-value">${v}</div></div>`).join('');
 
-  const nseTicker = ticker.replace('.NS','');
-  document.getElementById('nse-link').href = `https://www.nseindia.com/get-quotes/equity?symbol=${nseTicker}`;
+  document.getElementById('nse-link').href =
+    `https://www.nseindia.com/get-quotes/equity?symbol=${ticker.replace('.NS','')}`;
 
-  document.querySelectorAll('.chart-tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.period === state.modalPeriod);
-  });
+  document.querySelectorAll('.chart-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.period === state.modalPeriod));
 
   document.getElementById('modal-overlay').classList.add('open');
   loadModalChart(ticker, state.modalPeriod);
@@ -1129,7 +1155,6 @@ document.querySelectorAll('.chart-tab').forEach(btn => {
 async function loadModalChart(ticker, period) {
   const loading = document.getElementById('modal-chart-loading');
   loading.style.display = 'flex';
-
   if (state.modalChart) { state.modalChart.destroy(); state.modalChart = null; }
 
   try {
@@ -1154,9 +1179,9 @@ async function loadModalChart(ticker, period) {
           pointRadius: 0,
           tension: 0.3,
           fill: true,
-          backgroundColor: (ctx2) => {
+          backgroundColor: ctx2 => {
             const g = ctx2.chart.ctx.createLinearGradient(0, 0, 0, 240);
-            g.addColorStop(0, color + '33');
+            g.addColorStop(0, color + '44');
             g.addColorStop(1, color + '00');
             return g;
           }
@@ -1166,15 +1191,24 @@ async function loadModalChart(ticker, period) {
         responsive: true,
         maintainAspectRatio: false,
         animation: { duration: 400 },
-        plugins: { legend: { display: false }, tooltip: {
-          mode: 'index', intersect: false,
-          backgroundColor: '#1a1a2e', borderColor: '#2a2a42', borderWidth: 1,
-          titleColor: '#7878a0', bodyColor: '#e2e2f0',
-          callbacks: { label: ctx => '₹' + Number(ctx.raw).toLocaleString('en-IN', {maximumFractionDigits:2}) }
-        }},
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            mode: 'index', intersect: false,
+            backgroundColor: '#1a1a2e', borderColor: '#353560', borderWidth: 1,
+            titleColor: '#a8a8cc', bodyColor: '#f0f0ff',
+            callbacks: { label: ctx => '₹' + Number(ctx.raw).toLocaleString('en-IN', { maximumFractionDigits: 2 }) }
+          }
+        },
         scales: {
-          x: { grid: { color: '#1e1e30' }, ticks: { color: '#55556a', font: { family: 'JetBrains Mono', size: 10 }, maxTicksLimit: 8 } },
-          y: { grid: { color: '#1e1e30' }, ticks: { color: '#55556a', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '₹' + Number(v).toLocaleString('en-IN',{maximumFractionDigits:0}) } }
+          x: {
+            grid: { color: '#1e1e30' },
+            ticks: { color: '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, maxTicksLimit: 8 }
+          },
+          y: {
+            grid: { color: '#1e1e30' },
+            ticks: { color: '#6e6e98', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 }) }
+          }
         }
       }
     });
@@ -1194,17 +1228,15 @@ document.getElementById('modal-overlay').onclick = e => {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 };
 
-// ─── DATA FETCHING ────────────────────────────────────────
+// ─── DATA FETCHING ───────────────────────────────────────
 async function fetchQuotes() {
   try {
     const resp = await fetch(`${API_BASE}/api/quotes`);
-    if (!resp.ok) throw new Error('API error');
+    if (!resp.ok) throw new Error();
     state.quotes = await resp.json();
     document.getElementById('error-banner').style.display = 'none';
-    return true;
-  } catch(e) {
+  } catch {
     document.getElementById('error-banner').style.display = 'block';
-    return false;
   }
 }
 
@@ -1218,17 +1250,19 @@ async function fetchSparklines() {
 async function refresh() {
   await Promise.all([fetchQuotes(), fetchSparklines()]);
   state.lastUpdated = new Date();
-  const ts = state.lastUpdated.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  const ts = state.lastUpdated.toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
   document.getElementById('last-updated').textContent = ts;
   document.getElementById('footer-refresh').textContent = ts;
   renderKPIs();
   buildSectorTabs();
   renderTable();
   renderSectorCards();
-  state.countdown = 60;
+  state.countdown = REFRESH_SECONDS;
 }
 
-// ─── COUNTDOWN ────────────────────────────────────────────
+// ─── COUNTDOWN (5 min) ───────────────────────────────────
 setInterval(() => {
   if (state.countdown > 0) {
     state.countdown--;
@@ -1237,7 +1271,7 @@ setInterval(() => {
   }
 }, 1000);
 
-// ─── INIT ─────────────────────────────────────────────────
+// ─── INIT ────────────────────────────────────────────────
 refresh();
 </script>
 </body>

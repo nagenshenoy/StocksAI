@@ -34,7 +34,7 @@ STOCKS = {
         "Hitachi Energy": "POWERINDIA.NS",
         "CG Power": "CGPOWER.NS",
         "Cummins India": "CUMMINSIND.NS",
-        "GE Power India": "GEPIL.NS",
+        "GE Power India": "GVPIL.NS",
         "GE Vernova T&D": "GVT&D.NS",
         "Apar Industries": "APARINDS.NS",
         "TD Power Systems": "TDPOWERSYS.NS",
