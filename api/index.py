@@ -227,6 +227,83 @@ def get_sparklines():
     set_cached('sparklines', result)
     return jsonify(result)
 
+@app.route('/api/screener')
+def get_screener():
+    cached = get_cached('screener')
+    if cached:
+        return jsonify(cached)
+
+    results = []
+    try:
+        # Download 1Y history for all tickers at once
+        hist = yf.download(
+            ' '.join(ALL_TICKERS),
+            period='1y',
+            interval='1d',
+            group_by='ticker',
+            auto_adjust=True,
+            progress=False
+        )
+
+        single = len(ALL_TICKERS) == 1
+
+        for ticker in ALL_TICKERS:
+            try:
+                name, sector = TICKER_MAP[ticker]
+                if single:
+                    closes = hist['Close'].dropna()
+                else:
+                    closes = hist[ticker]['Close'].dropna()
+
+                if len(closes) < 2:
+                    raise ValueError("Not enough data")
+
+                price = float(closes.iloc[-1])
+
+                def pct_return(n_periods):
+                    if len(closes) > n_periods:
+                        base = float(closes.iloc[-(n_periods + 1)])
+                        if base and base > 0:
+                            return round((price - base) / base * 100, 2)
+                    return None
+
+                # 1D = yesterday close vs today
+                ret_1d = pct_return(1)
+                # 1W ~5 trading days
+                ret_1w = pct_return(5)
+                # 1M ~21 trading days
+                ret_1m = pct_return(21)
+                # 1Y ~252 trading days
+                ret_1y = pct_return(252) if len(closes) >= 252 else (
+                    round((price - float(closes.iloc[0])) / float(closes.iloc[0]) * 100, 2)
+                    if len(closes) > 1 else None
+                )
+
+                results.append({
+                    "name": name,
+                    "ticker": ticker,
+                    "sector": sector,
+                    "price": round(price, 2),
+                    "ret_1d": ret_1d,
+                    "ret_1w": ret_1w,
+                    "ret_1m": ret_1m,
+                    "ret_1y": ret_1y,
+                })
+            except Exception as e:
+                name, sector = TICKER_MAP.get(ticker, (ticker, 'Unknown'))
+                results.append({
+                    "name": name, "ticker": ticker, "sector": sector,
+                    "price": None, "ret_1d": None, "ret_1w": None,
+                    "ret_1m": None, "ret_1y": None,
+                    "error": str(e)
+                })
+    except Exception as e:
+        return jsonify({"error": str(e), "data": results}), 500
+
+    set_cached('screener', results)
+    return jsonify(results)
+
+
 @app.route('/api/health')
 def health():
     return jsonify({"status": "ok", "tickers": len(ALL_TICKERS)})
