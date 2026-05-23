@@ -456,15 +456,35 @@ td.muted { color: var(--text-secondary); font-weight: 500; }
   transition: width 0.6s ease;
 }
 
-.sector-top-stock {
+.sector-stock-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 11px;
-  color: var(--text-secondary);
-  font-weight: 500;
+  margin-top: 5px;
+  gap: 4px;
 }
-
-.sector-top-stock span {
-  color: var(--text-primary);
+.sector-stock-label {
+  color: var(--text-muted);
+  font-size: 10px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  width: 36px;
+}
+.sector-stock-ticker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+}
+.sector-stock-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 /* ─── ERROR STATE ─── */
@@ -1287,6 +1307,58 @@ body.light .section-heading {
   color: var(--text-secondary);
 }
 
+/* ─── MANUAL REFRESH BUTTON ─── */
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.refresh-btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+}
+
+.refresh-btn:active {
+  transform: scale(0.97);
+}
+
+.refresh-btn.spinning #refresh-btn-icon,
+#refresh-btn-icon.spin {
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+body.light .refresh-btn {
+  background: #ede9df;
+  border-color: var(--border-bright);
+  color: var(--text-secondary);
+}
+body.light .refresh-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: var(--accent-green-dim);
+}
+
 /* ─── THEME TOGGLE BUTTON ─── */
 .theme-toggle {
   display: flex;
@@ -1361,8 +1433,10 @@ body.light .toggle-thumb {
       </div>
       <div class="header-clock" id="clock">--:--:-- IST</div>
       <div class="refresh-info">
-        <div>Updated: <span id="last-updated">—</span></div>
-        <div>Refresh in <span class="refresh-countdown" id="countdown">—</span>s</div>
+        <div style="margin-bottom:4px">Updated: <span id="last-updated">—</span></div>
+        <button id="refresh-btn" onclick="manualRefresh()" class="refresh-btn" title="Refresh all data">
+          <span id="refresh-btn-icon">↻</span> Refresh
+        </button>
       </div>
       <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode" onclick="toggleTheme()">
         <span class="toggle-icon" id="theme-icon">🌙</span>
@@ -1839,12 +1913,22 @@ function renderSectorCards() {
   document.getElementById('sector-grid').innerHTML = sectors.map(sector => {
     const stocks = state.quotes.filter(q => q.sector === sector && q.change_pct !== null);
     const avg = stocks.length ? stocks.reduce((s,x) => s + x.change_pct, 0) / stocks.length : null;
-    const top = stocks.length
-      ? stocks.reduce((a,b) => Math.abs(b.change_pct||0) > Math.abs(a.change_pct||0) ? b : a, stocks[0])
+
+    // Top gainer = highest change_pct
+    const topGainer = stocks.length
+      ? stocks.reduce((a,b) => (b.change_pct||0) > (a.change_pct||0) ? b : a, stocks[0])
       : null;
+    // Top loser = lowest change_pct
+    const topLoser = stocks.length
+      ? stocks.reduce((a,b) => (b.change_pct||0) < (a.change_pct||0) ? b : a, stocks[0])
+      : null;
+
     const isPos = avg !== null && avg >= 0;
     const barPct = avg !== null ? Math.min(Math.abs(avg) * 12, 100) : 0;
     const icon = SECTOR_ICONS[sector] || '◈';
+
+    const fmtTicker = s => s ? s.ticker.replace('.NS','') : '—';
+
     return `<div class="sector-card">
       <div class="sector-card-header">
         <div class="sector-card-name">${sector}</div>
@@ -1856,7 +1940,16 @@ function renderSectorCards() {
       <div class="sector-bar-track">
         <div class="sector-bar-fill" style="width:${barPct}%; background:${isPos ? 'var(--accent-green)' : 'var(--accent-red)'}"></div>
       </div>
-      <div class="sector-top-stock">Top: <span>${top ? top.name + ' ' + fmtPct(top.change_pct) : '—'}</span></div>
+      <div class="sector-stock-row">
+        <span class="sector-stock-label">Top</span>
+        <span class="sector-stock-ticker">${fmtTicker(topGainer)}</span>
+        <span class="sector-stock-pct gain">${topGainer ? fmtPct(topGainer.change_pct) : '—'}</span>
+      </div>
+      <div class="sector-stock-row">
+        <span class="sector-stock-label">Down</span>
+        <span class="sector-stock-ticker">${fmtTicker(topLoser)}</span>
+        <span class="sector-stock-pct loss">${topLoser ? fmtPct(topLoser.change_pct) : '—'}</span>
+      </div>
     </div>`;
   }).join('');
 }
@@ -2017,17 +2110,27 @@ async function refresh() {
   buildSectorTabs();
   renderTable();
   renderSectorCards();
-  state.countdown = REFRESH_SECONDS;
 }
 
-// ─── COUNTDOWN (5 min) ───────────────────────────────────
-setInterval(() => {
-  if (state.countdown > 0) {
-    state.countdown--;
-    document.getElementById('countdown').textContent = state.countdown;
-    if (state.countdown === 0) refresh();
+// ─── MANUAL REFRESH ──────────────────────────────────────
+async function manualRefresh() {
+  const btn = document.getElementById('refresh-btn');
+  const icon = document.getElementById('refresh-btn-icon');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  icon.style.display = 'inline-block';
+  icon.style.animation = 'spin 0.7s linear infinite';
+  btn.style.opacity = '0.65';
+
+  try {
+    await refresh();
+    await Promise.all([fetchHeatmap(), fetchScreener()]);
+  } finally {
+    icon.style.animation = '';
+    btn.disabled = false;
+    btn.style.opacity = '';
   }
-}, 1000);
+}
 
 // ─── SECTOR HEAT MAP ─────────────────────────────────────
 
@@ -2220,10 +2323,11 @@ function toggleTheme() {
   }
 }
 
-// Load saved theme preference (dark is default)
+// Load saved theme preference (light is default)
 (function() {
   const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
+  const useDark = saved === 'dark';
+  if (!useDark) {
     document.body.classList.add('light');
     document.getElementById('theme-icon').textContent = '☀️';
     document.getElementById('theme-label').textContent = 'Light';
