@@ -688,6 +688,232 @@ footer {
   .header-clock, .refresh-info { display: none; }
 }
 
+/* ─── SECTOR HEAT MAP ─── */
+.heatmap-wrap {
+  margin-top: 32px;
+}
+
+.heatmap-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.heatmap-title {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.heatmap-title em {
+  font-style: italic;
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.heatmap-subtitle {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.heatmap-table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+.heatmap-scroll { overflow-x: auto; }
+
+.heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  min-width: 720px;
+}
+
+.heatmap-table thead tr {
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border-bright);
+}
+
+.heatmap-table thead th {
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.heatmap-table thead th:first-child {
+  text-align: left;
+  min-width: 220px;
+}
+
+.heatmap-table thead th:not(:first-child) {
+  text-align: center;
+  min-width: 120px;
+}
+
+.heatmap-table thead th:hover { color: var(--text-primary); }
+.heatmap-table thead th.hm-sorted { color: var(--accent-cyan); }
+
+.heatmap-table thead th .hm-arrow {
+  margin-left: 3px;
+  opacity: 0.5;
+  font-size: 9px;
+}
+.heatmap-table thead th.hm-sorted .hm-arrow { opacity: 1; }
+
+.heatmap-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: opacity 0.1s;
+}
+.heatmap-table tbody tr:last-child { border-bottom: none; }
+.heatmap-table tbody tr:hover { opacity: 0.88; }
+
+.heatmap-table td {
+  padding: 9px 8px;
+  vertical-align: middle;
+}
+
+.hm-sector-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 14px !important;
+}
+
+.hm-sector-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.hm-sector-name {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.hm-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-left: auto;
+  padding-right: 12px;
+}
+
+/* Heatmap value cells */
+.hm-cell {
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 6px;
+  border-radius: 6px;
+  margin: 4px 6px;
+  min-width: 80px;
+  display: inline-block;
+  width: calc(100% - 12px);
+  box-sizing: border-box;
+  letter-spacing: 0.01em;
+}
+
+td.hm-val { padding: 5px 6px; }
+
+/* Same color bands as screener */
+.hm-h5  { background: #6CC284; color: #0d2b18; }
+.hm-h30 { background: #2E6F40; color: #c8f0d8; }
+.hm-h75 { background: #1a4d2a; color: #80e8a8; }
+.hm-l5  { background: #EEEEEE; color: #444; }
+.hm-n   { background: #DADBDD; color: #444; }
+.hm-d5  { background: #EEEEEE; color: #444; }
+.hm-d30 { background: #FF4141; color: #fff; }
+.hm-d75 { background: #FF2C2C; color: #fff; }
+.hm-na  { background: transparent; color: var(--text-muted); }
+
+/* Legend row */
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.hm-leg-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.hm-leg-label {
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+
+.hm-leg-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.hm-leg-swatch {
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.hm-leg-sep { color: var(--border-bright); margin: 0 2px; }
+
+.hm-leg-right {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Light mode */
+body.light .hm-l5,
+body.light .hm-d5 { color: #555; }
+body.light .hm-n  { color: #444; }
+body.light .hm-sector-icon {
+  background: #ede9df;
+  border-color: var(--border);
+}
+
 /* ─── STOCK SCREENER ─── */
 .screener-wrap {
   margin-top: 32px;
@@ -1228,6 +1454,53 @@ body.light .toggle-thumb {
     <div class="sector-grid" id="sector-grid"></div>
   </div>
 
+  <!-- Sector Heat Map -->
+  <div class="heatmap-wrap">
+    <div class="heatmap-header">
+      <div class="heatmap-title">⊞ Sector <em>Heat Map</em></div>
+      <div class="heatmap-subtitle">Mean Return Per Sector × Timeframe</div>
+    </div>
+    <div class="heatmap-table-wrapper">
+      <div class="heatmap-scroll">
+        <table class="heatmap-table" id="heatmap-table">
+          <thead>
+            <tr>
+              <th data-hm="sector" class="hm-sorted">Sector A–Z <span class="hm-arrow">↑</span></th>
+              <th data-hm="ret_1d">1D <span class="hm-arrow">↕</span></th>
+              <th data-hm="ret_1w">1W <span class="hm-arrow">↕</span></th>
+              <th data-hm="ret_1m">1M <span class="hm-arrow">↕</span></th>
+              <th data-hm="ret_1y">1Y <span class="hm-arrow">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="heatmap-tbody">
+            <tr><td colspan="5"><div class="skeleton" style="width:100%;height:40px;border-radius:6px"></div></td></tr>
+            <tr><td colspan="5"><div class="skeleton" style="width:100%;height:40px;border-radius:6px"></div></td></tr>
+            <tr><td colspan="5"><div class="skeleton" style="width:100%;height:40px;border-radius:6px"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="heatmap-legend">
+        <div class="hm-leg-left">
+          <span class="hm-leg-label">Legend</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#FF2C2C;color:#fff">&lt;-75%</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#FF4141;color:#fff">-30%</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#EEEEEE;color:#555;border:1px solid #ccc">-5%</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#DADBDD;color:#444;border:1px solid #bbb">0</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#EEEEEE;color:#555;border:1px solid #ccc">+5%</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#6CC284;color:#0d2b18">+30%</span></div>
+          <span class="hm-leg-sep">·</span>
+          <div class="hm-leg-item"><span class="hm-leg-swatch" style="background:#2E6F40;color:#c8f0d8">&gt;+75%</span></div>
+        </div>
+        <div class="hm-leg-right">Click column headers to sort</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Stock Screener -->
   <div class="screener-wrap">
     <div class="screener-heading">
@@ -1756,6 +2029,86 @@ setInterval(() => {
   }
 }, 1000);
 
+// ─── SECTOR HEAT MAP ─────────────────────────────────────
+
+const hmState = { data: [], sortCol: 'sector', sortDir: 'asc' };
+
+function hmRetClass(v) {
+  if (v === null || v === undefined) return 'hm-na';
+  if (v < -75) return 'hm-d75';
+  if (v < -30) return 'hm-d30';
+  if (v < -5)  return 'hm-d5';
+  if (v <= 5)  return 'hm-n';
+  if (v <= 30) return 'hm-h5';
+  if (v <= 75) return 'hm-h30';
+  return 'hm-h75';
+}
+
+function hmFmt(v) {
+  if (v === null || v === undefined) return '—';
+  return (v >= 0 ? '+' : '') + v.toFixed(1) + '%';
+}
+
+function renderHeatmap() {
+  const sorted = [...hmState.data].sort((a, b) => {
+    const col = hmState.sortCol;
+    const av = a[col], bv = b[col];
+    if (av === null && bv === null) return 0;
+    if (av === null) return 1;
+    if (bv === null) return -1;
+    const cmp = typeof av === 'string' ? av.localeCompare(bv) : av - bv;
+    return hmState.sortDir === 'asc' ? cmp : -cmp;
+  });
+
+  document.getElementById('heatmap-tbody').innerHTML = sorted.map(s => {
+    const icon = SECTOR_ICONS[s.sector] || '📊';
+    return `<tr>
+      <td class="hm-sector-cell">
+        <div class="hm-sector-icon">${icon}</div>
+        <span class="hm-sector-name">${s.sector}</span>
+        <span class="hm-count">${s.count}</span>
+      </td>
+      <td class="hm-val"><div class="hm-cell ${hmRetClass(s.ret_1d)}">${hmFmt(s.ret_1d)}</div></td>
+      <td class="hm-val"><div class="hm-cell ${hmRetClass(s.ret_1w)}">${hmFmt(s.ret_1w)}</div></td>
+      <td class="hm-val"><div class="hm-cell ${hmRetClass(s.ret_1m)}">${hmFmt(s.ret_1m)}</div></td>
+      <td class="hm-val"><div class="hm-cell ${hmRetClass(s.ret_1y)}">${hmFmt(s.ret_1y)}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+async function fetchHeatmap() {
+  try {
+    const resp = await fetch(`${API_BASE}/api/sector-heatmap`);
+    if (!resp.ok) throw new Error();
+    hmState.data = await resp.json();
+    renderHeatmap();
+  } catch {
+    document.getElementById('heatmap-tbody').innerHTML =
+      '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px">⚠ Unable to load sector data</td></tr>';
+  }
+}
+
+document.querySelectorAll('.heatmap-table thead th[data-hm]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.hm;
+    if (hmState.sortCol === col) {
+      hmState.sortDir = hmState.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      hmState.sortCol = col;
+      hmState.sortDir = col === 'sector' ? 'asc' : 'desc';
+    }
+    document.querySelectorAll('.heatmap-table thead th').forEach(t => {
+      t.classList.remove('hm-sorted');
+      const a = t.querySelector('.hm-arrow');
+      if (a) a.textContent = '↕';
+    });
+    th.classList.add('hm-sorted');
+    const a = th.querySelector('.hm-arrow');
+    if (a) a.textContent = hmState.sortDir === 'asc' ? '↑' : '↓';
+    renderHeatmap();
+  });
+});
+
 // ─── STOCK SCREENER ──────────────────────────────────────
 const screenerState = {
   data: [],
@@ -1843,6 +2196,7 @@ document.querySelectorAll('.screener-table thead th[data-sc]').forEach(th => {
 
 // ─── INIT ────────────────────────────────────────────────
 refresh();
+fetchHeatmap();
 fetchScreener();
 
 // ─── THEME TOGGLE ────────────────────────────────────────

@@ -227,6 +227,85 @@ def get_sparklines():
     set_cached('sparklines', result)
     return jsonify(result)
 
+@app.route('/api/sector-heatmap')
+def get_sector_heatmap():
+    cached = get_cached('sector_heatmap')
+    if cached:
+        return jsonify(cached)
+
+    results = []
+    try:
+        hist = yf.download(
+            ' '.join(ALL_TICKERS),
+            period='1y',
+            interval='1d',
+            group_by='ticker',
+            auto_adjust=True,
+            progress=False
+        )
+        single = len(ALL_TICKERS) == 1
+
+        # Group tickers by sector
+        sector_tickers = {}
+        for ticker, (name, sector) in TICKER_MAP.items():
+            sector_tickers.setdefault(sector, []).append(ticker)
+
+        for sector, tickers in sorted(sector_tickers.items()):
+            sector_rets = {'1d': [], '1w': [], '1m': [], '1y': []}
+            count = len(tickers)
+
+            for ticker in tickers:
+                try:
+                    if single:
+                        closes = hist['Close'].dropna()
+                    else:
+                        closes = hist[ticker]['Close'].dropna()
+
+                    if len(closes) < 2:
+                        continue
+
+                    price = float(closes.iloc[-1])
+
+                    def pct(n):
+                        if len(closes) > n:
+                            base = float(closes.iloc[-(n+1)])
+                            if base and base > 0:
+                                return (price - base) / base * 100
+                        return None
+
+                    r1d = pct(1)
+                    r1w = pct(5)
+                    r1m = pct(21)
+                    r1y = pct(252) if len(closes) >= 252 else (
+                        (price - float(closes.iloc[0])) / float(closes.iloc[0]) * 100
+                        if len(closes) > 1 else None
+                    )
+
+                    for key, val in zip(['1d','1w','1m','1y'], [r1d, r1w, r1m, r1y]):
+                        if val is not None:
+                            sector_rets[key].append(val)
+                except:
+                    pass
+
+            def avg(lst):
+                return round(sum(lst)/len(lst), 1) if lst else None
+
+            results.append({
+                'sector': sector,
+                'count': count,
+                'ret_1d': avg(sector_rets['1d']),
+                'ret_1w': avg(sector_rets['1w']),
+                'ret_1m': avg(sector_rets['1m']),
+                'ret_1y': avg(sector_rets['1y']),
+            })
+
+    except Exception as e:
+        return jsonify({'error': str(e), 'data': results}), 500
+
+    set_cached('sector_heatmap', results)
+    return jsonify(results)
+
+
 @app.route('/api/screener')
 def get_screener():
     cached = get_cached('screener')
